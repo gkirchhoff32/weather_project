@@ -25,24 +25,12 @@ import datetime as dt
 
 max_length = 50
 times = deque(maxlen=max_length)
-# oil_temps = deque(maxlen=max_length)
-# intake_temps = deque(maxlen=max_length)
-# coolant_temps = deque(maxlen=max_length)
-# rpms = deque(maxlen=max_length)
-# speeds = deque(maxlen=max_length)
-# throttle_pos = deque(maxlen=max_length)
 temp_vals = deque(maxlen=max_length)
 gas_vals = deque(maxlen=max_length)
 hum_vals = deque(maxlen=max_length)
 pres_vals = deque(maxlen=max_length)
 tot_time,tot_temp,tot_gas,tot_hum,tot_pres = [],[],[],[],[]
 
-# data_dict = {"Oil Temperature":oil_temps,
-# "Intake Temperature": intake_temps,
-# "Coolant Temperature": coolant_temps,
-# "RPM":rpms,
-# "Speed":speeds,
-# "Throttle Position":throttle_pos}
 data_dict = {
                 "Temperature":temp_vals,
                 "Gas":gas_vals,
@@ -50,7 +38,6 @@ data_dict = {
                 "Pressure":pres_vals
              }
 
-# def update_obd_values(times, oil_temps, intake_temps, coolant_temps, rpms, speeds, throttle_pos):
 def update_obd_values(times, temp_vals, gas_vals, hum_vals, pres_vals):
     i2c = busio.I2C(board.SCL, board.SDA)
     sensor = adafruit_bme680.Adafruit_BME680_I2C(i2c)
@@ -59,27 +46,17 @@ def update_obd_values(times, temp_vals, gas_vals, hum_vals, pres_vals):
     if len(times) == 1:     
         #starting relevant values
         
-#         oil_temps.append(random.randrange(180,230))     
-#         intake_temps.append(random.randrange(95,115))     
-#         coolant_temps.append(random.randrange(170,220))     
-#         rpms.append(random.randrange(1000,9500))     
-#         speeds.append(random.randrange(30,140))     
-#         throttle_pos.append(random.randrange(10,90))
         for i in [temp_vals,gas_vals,hum_vals,pres_vals]:
             i.append(1)
         
     else:
-#         for data_of_interest in [oil_temps, intake_temps, coolant_temps, rpms, speeds, throttle_pos]:     
-#             data_of_interest.append(data_of_interest[-1]+data_of_interest[-1]*random.uniform(-0.0001,0.0001))     
         temp_vals.append(sensor.temperature)
         gas_vals.append(sensor.gas)
         hum_vals.append(sensor.humidity)
         pres_vals.append(sensor.pressure)
 
-#     return times, oil_temps, intake_temps, coolant_temps, rpms, speeds, throttle_pos
     return times, temp_vals, gas_vals, hum_vals, pres_vals
      
-# times, oil_temps, intake_temps, coolant_temps, rpms, speeds, throttle_pos = update_obd_values(times, oil_temps, intake_temps, coolant_temps, rpms, speeds, throttle_pos)     
 times, temp_vals, gas_vals, hum_vals, pres_vals = update_obd_values(times, temp_vals, gas_vals, hum_vals, pres_vals)     
 tot_time.append(times[-1])
 tot_temp.append(temp_vals[-1])
