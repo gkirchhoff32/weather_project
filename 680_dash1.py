@@ -5,6 +5,8 @@
 ### Grant Kirchhoff, UC Berkeley ################
 ### 2020.06.01 ##################################
 
+# NOTE: Hermosa IP 192.168.1.73
+
 # plotly modules
 import dash
 import dash_core_components as dcc
