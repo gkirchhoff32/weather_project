@@ -6,6 +6,7 @@
 ### 2020.06.01 ##################################
 
 # NOTE: Hermosa IP 192.168.1.73
+# Remember to use 192.168.x.xx:8050
 
 # plotly modules
 import dash
